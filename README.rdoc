@@ -27,7 +27,7 @@ and/or infrastructure. Fork and extend as you see fit.
 
 === What you need to change within maestro-rails3-example
 
-==== <code>maestro-rails3-example/config/maestro/clouds/maestro-example.rb</code>
+==== <code>maestro-rails3-example/config/maestro/clouds/example.rb</code>
 
 The following attributes within the "example" aws_cloud need to be changed:
 
