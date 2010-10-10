@@ -67,6 +67,7 @@ Download your X.509 certificate and private key for accessing Amazon Web Service
 directory with the following names:
 
 <code>aws-cert.pem</code>
+<br>
 <code>aws-pk.pem</code>
 
 These are used by a cron job which uses the Amazon EC2 command line tools to maintain a rolling window of the last 10 snapshots of your
@@ -77,6 +78,7 @@ EBS volume.
 Save the SSL certificate and private key for your domain name in this directory with the following names:
 
 <code>server.crt</code>
+<br>
 <code>server.key</code>
 
 ==== <code>maestro-rails3-example/config/maestro/cookbooks/users/files/default</code>
