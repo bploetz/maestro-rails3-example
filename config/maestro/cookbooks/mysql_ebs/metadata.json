@@ -1,0 +1,44 @@
+{
+    "attributes": {
+      "mysql_ebs/device": {
+        "default": "/dev/sdh",
+        "calculated": false,
+        "type": "string",
+        "choice": [],
+        "description": "Device the EBS volume is attached as",
+        "display_name": "MySQL EBS Device",
+        "recipes": [],
+        "required": "optional"
+      },
+      "mysql/mount_dir": {
+        "default": "/vol/ebs",
+        "calculated": false,
+        "type": "string",
+        "choice": [],
+        "description": "Directory the EBS volume should be mounted as",
+        "display_name": "MySQL EBS Mount Directory",
+        "recipes": [],
+        "required": "optional"
+      }
+    },
+    "conflicting": {},
+    "platforms": {
+      "ubuntu": [],
+      "debian": []
+    },
+    "long_description": "= DESCRIPTION:\n\nConfigures a MySQL server to use an EBS volume for it's storage.",
+    "dependencies": {},
+    "providing": {},
+    "version": "0.1.0",
+    "name": "mysql_ebs",
+    "recipes": {
+      "mysql_ebs::esh": "Configures a MySQL server to use an EBS volume for it's storage."
+    },
+    "replacing": {},
+    "license": "Apache 2.0",
+    "groupings": {},
+    "recommendations": {},
+    "maintainer": "bploetz",
+    "suggestions": {},
+    "description": "Configures a MySQL server to use an EBS volume for it's storage."
+  }

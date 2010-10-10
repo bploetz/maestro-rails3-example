@@ -1,0 +1,13 @@
+{
+  "name": "allinone",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "The all in one role: db, web server, mail server.",
+  "run_list": [
+    "role[default]",
+    "role[db]",
+    "role[email]",
+    "role[web]",
+    "role[monitor]"
+  ]
+}

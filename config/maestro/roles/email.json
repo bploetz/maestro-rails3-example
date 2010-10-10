@@ -1,0 +1,9 @@
+{
+  "name": "email",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "The base role for nodes that send outbound email",
+  "run_list": [
+    "recipe[postfix::default]"
+  ]
+}

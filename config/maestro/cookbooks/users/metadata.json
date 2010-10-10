@@ -1,0 +1,40 @@
+{
+    "dependencies": {
+    },
+    "replacing": {
+    },
+    "description": "Sets up users",
+    "groupings": {
+    },
+    "platforms": {
+      "ubuntu": [
+
+      ],
+      "centos": [
+
+      ],
+      "redhat": [
+
+      ],
+      "debian": [
+
+      ]
+    },
+    "version": "0.1",
+    "recommendations": {
+    },
+    "name": "users",
+    "maintainer": "bploetz",
+    "long_description": "",
+    "recipes": {
+    },
+    "suggestions": {
+    },
+    "attributes": {
+    },
+    "conflicting": {
+    },
+    "license": "Apache 2.0",
+    "providing": {
+    }
+  }

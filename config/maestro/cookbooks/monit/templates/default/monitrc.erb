@@ -1,0 +1,53 @@
+set daemon 60
+set logfile syslog facility log_daemon
+set idfile /var/monit/monit.id
+set mailserver localhost
+set eventqueue
+    basedir /var/monit  # set the base directory where events will be stored
+    slots 20           # optionaly limit the queue size
+set mail-format { from: <%= @node[:monit][:from_email_address] %> }
+
+# receive all alerts
+set alert <%= @node[:monit][:alert_email_address] %>
+
+set httpd port 2812
+    allow localhost
+
+##################
+# Monitor Postfix
+##################
+
+# Conventional pid file location
+check process postfix with pidfile /var/spool/postfix/pid/master.pid
+  group mail
+  # start/stop commands from postfix recipe
+  start program = "/etc/init.d/postfix start"
+  stop  program = "/etc/init.d/postfix stop"
+  if failed host <%= @node[:hostname] %> port 25 protocol smtp then restart
+  if 5 restarts within 5 cycles then timeout
+
+#################
+# Monitor Mysql
+#################
+
+# PID file from mysql recipe
+check process mysql with pidfile /var/run/mysqld/mysqld.pid
+  group database
+  # start/stop commands from mysql recipe
+  start program = "/etc/init.d/mysql start"
+  stop program = "/etc/init.d/mysql stop"
+  if failed host <%= @node[:hostname] %> port 3306 then restart
+  if 5 restarts within 5 cycles then timeout
+
+#################
+# Monitor Nginx
+#################
+
+# PID file from nginx recipe
+check process nginx with pidfile /var/run/nginx/nginx.pid
+  group web
+  # start/stop commands from nginx recipe
+  start program = "/etc/init.d/nginx start"
+  stop program = "/etc/init.d/nginx stop"
+  if failed host <%= @node[:hostname] %> port 80 then restart
+  if 5 restarts within 5 cycles then timeout

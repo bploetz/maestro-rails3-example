@@ -1,0 +1,9 @@
+{
+  "name": "monitor",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "The base role for nodes that monitor themselves",
+  "run_list": [
+    "recipe[monit::default]"
+  ]
+}

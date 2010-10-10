@@ -1,0 +1,23 @@
+## MAC OS
+.DS_Store
+
+## TEXTMATE
+*.tmproj
+tmtags
+
+## EMACS
+*~
+\#*
+.\#*
+
+## VIM
+*.swp
+
+## RadRails
+.project
+
+## Rails
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*

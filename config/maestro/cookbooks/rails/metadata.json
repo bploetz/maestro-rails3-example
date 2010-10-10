@@ -1,0 +1,40 @@
+{
+    "dependencies": {
+    },
+    "replacing": {
+    },
+    "description": "Installs rails",
+    "groupings": {
+    },
+    "platforms": {
+      "ubuntu": [
+
+      ],
+      "centos": [
+
+      ],
+      "redhat": [
+
+      ],
+      "debian": [
+
+      ]
+    },
+    "version": "0.7.0",
+    "recommendations": {
+    },
+    "name": "rails",
+    "maintainer": "bploetz",
+    "long_description": "",
+    "recipes": {
+    },
+    "suggestions": {
+    },
+    "attributes": {
+    },
+    "conflicting": {
+    },
+    "license": "Apache 2.0",
+    "providing": {
+    }
+  }

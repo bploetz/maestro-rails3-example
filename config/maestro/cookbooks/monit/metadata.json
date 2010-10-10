@@ -1,0 +1,44 @@
+{
+    "attributes": {
+      "monit/alert_email_address": {
+        "default": "",
+        "calculated": false,
+        "type": "string",
+        "choice": [],
+        "description": "Email addres monit alerts are sent to",
+        "display_name": "Alert Email Address",
+        "recipes": [],
+        "required": "optional"
+      },
+      "monit/from_email_address": {
+        "default": "",
+        "calculated": false,
+        "type": "string",
+        "choice": [],
+        "description": "From email addres for monit alerts",
+        "display_name": "From Email Address",
+        "recipes": [],
+        "required": "optional"
+      }
+    },
+    "conflicting": {},
+    "platforms": {
+      "ubuntu": [],
+      "debian": []
+    },
+    "long_description": "= DESCRIPTION:\n\nInstalls monit",
+    "dependencies": {},
+    "providing": {},
+    "version": "0.1.0",
+    "name": "monit",
+    "recipes": {
+      "monit::default": "Installs packages required for monit"
+    },
+    "replacing": {},
+    "license": "Apache 2.0",
+    "groupings": {},
+    "recommendations": {},
+    "maintainer": "bploetz",
+    "suggestions": {},
+    "description": "Installs and configures monit"
+  }

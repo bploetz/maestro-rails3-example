@@ -1,0 +1,11 @@
+{
+  "name": "db",
+  "chef_type": "role",
+  "json_class": "Chef::Role",
+  "description": "The base role for nodes that run a database",
+  "run_list": [
+    "recipe[mysql_ebs::esh]",
+    "recipe[mysql_users]",
+    "recipe[mysql_databases]"
+  ]
+}

@@ -1,0 +1,40 @@
+{
+    "dependencies": {
+    },
+    "replacing": {
+    },
+    "description": "Sets up MySQL databases",
+    "groupings": {
+    },
+    "platforms": {
+      "ubuntu": [
+
+      ],
+      "centos": [
+
+      ],
+      "redhat": [
+
+      ],
+      "debian": [
+
+      ]
+    },
+    "version": "0.1",
+    "recommendations": {
+    },
+    "name": "mysql_databases",
+    "maintainer": "bploetz",
+    "long_description": "",
+    "recipes": {
+    },
+    "suggestions": {
+    },
+    "attributes": {
+    },
+    "conflicting": {
+    },
+    "license": "Apache 2.0",
+    "providing": {
+    }
+  }

@@ -1,0 +1,28 @@
+myhostname = www.<%= @node[:postfix][:mydomain] %>
+mydomain = <%= @node[:postfix][:mydomain] %>
+myorigin = $mydomain
+
+smtpd_banner = $myhostname ESMTP $mail_name
+biff = no
+append_dot_mydomain = no
+
+alias_maps = hash:/etc/aliases
+alias_database = hash:/etc/aliases
+mydestination = localdomain, localhost, localhost.localdomain, localhost
+mynetworks = 127.0.0.0/8
+mailbox_size_limit = 0
+recipient_delimiter = +
+
+# SECURITY NOTE: Listening on all interfaces. Make sure your firewall is
+# configured correctly
+inet_interfaces = all
+
+relayhost = [<%= @node[:postfix][:relayhost] %>]:<%= @node[:postfix][:relayport] %>
+smtp_connection_cache_destinations = <%= @node[:postfix][:relayhost] %>
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = static:<%= @node[:postfix][:relayuserid] %>:<%= @node[:postfix][:relaypassword] %>
+smtp_sasl_security_options = noanonymous
+
+default_destination_concurrency_limit = <%= @node[:postfix][:relay_concurrent_connections] %>
+
+soft_bounce = yes

@@ -1,0 +1,121 @@
+== Maestro example Rails 3 application.
+
+This is an example Rails 3 application which uses {Maestro}[http://github.com/bploetz/maestro] to provision and configure a cloud named "example".
+
+The "example" cloud applies the Chef role "allinone" to a single EC2 node named "web-1". The "allinone" role is a complete web stack in a box, containing:
+
+- {Ubuntu 10.04}[http://www.ubuntu.com]
+- {Nginx}[http://wiki.nginx.org/Main] + {Phusion Passenger}[http://www.modrails.com] to run your Rails 3 app.
+- {MySQL}[http://dev.mysql.com] running on an EBS volume for persistent storage, as described in {Eric Hammond's guide}[http://developer.amazonwebservices.com/connect/entry.jspa?categoryID=100&externalID=1663].
+  It also includes cron jobs to snapshot the database every hour, and to maintain a rolling window of the last 10 snapshots.
+- {Postfix}[http://www.postfix.org] for outbound email, sending through an SMTP provider ({AuthSMTP}[http://www.authsmtp.com] in this example).
+- {Monit}[http://mmonit.com/monit] monitors for Nginx, MySQL, and Postfix.
+- Creates a "deploy" user to be used for deploying your app to the instance.
+
+The example cloud uses the Rails environment named "staging".
+
+=== Caveats
+
+This is just an example to get you started. There's some hacks here and there, and some configurations that may not be appropriate for your application
+and/or infrastructure. Fork and extend as you see fit.
+
+=== What you need to obtain
+
+- An EBS volume
+- An Elastic IP address
+- An {AuthSMTP}[http://www.authsmtp.com] account
+
+=== What you need to change within maestro-rails3-example
+
+==== <code>maestro-rails3-example/config/maestro/clouds/maestro-example.rb</code>
+
+The following attributes within the "example" aws_cloud need to be changed:
+
+- <code>keypair_name</code>
+- <code>keypair_file</code>
+- <code>aws_account_id</code>
+- <code>aws_access_key</code>
+- <code>aws_secret_access_key</code>
+- <code>chef_bucket</code>
+- <code>elastic_ip</code>
+- <code>ebs_volume_id</code>
+
+The following attributes within the "web-1" ec2_node need to be changed:
+
+- <code>elastic_ip</code>
+- <code>ebs_volume_id</code>
+
+The following cookbook_attributes within the "web-1" ec2_node need to be changed:
+
+- <code>public_hostname</code>
+- <code>mysql: server_root_password</code>
+- <code>mysql_ebs: ebs_volume_id</code>
+- <code>mysql_ebs: aws_access_key_id</code>
+- <code>mysql_ebs: aws_secret_access_key</code>
+- <code>postfix: mydomain</code>
+- <code>postfix: relayhost</code>
+- <code>postfix: relayport</code>
+- <code>postfix: relayuserid</code>
+- <code>postfix: relaypassword</code>
+- <code>monit: alert_email_address</code>
+- <code>monit: from_email_address</code>
+
+
+==== <code>maestro-rails3-example/config/maestro/cookbooks/mysql_ebs/files/default</code>
+
+Download your X.509 certificate and private key for accessing Amazon Web Services from your Amazon account, and save them in this
+directory with the following names:
+
+<code>aws-cert.pem</code>
+<code>aws-pk.pem</code>
+
+These are used by a cron job which uses the Amazon EC2 command line tools to maintain a rolling window of the last 10 snapshots of your
+EBS volume.
+
+==== <code>maestro-rails3-example/config/maestro/cookbooks/nginx/files/default</code>
+
+Save the SSL certificate and private key for your domain name in this directory with the following names:
+
+<code>server.crt</code>
+<code>server.key</code>
+
+==== <code>maestro-rails3-example/config/maestro/cookbooks/users/files/default</code>
+
+Create an SSH keypair for the "deploy" user, which is created for the deployment of your app to the node. Extract
+the public key and save in this directory with the following name:
+
+<code>id_rsa-deploy.pub</code>
+
+
+=== What you need to configure externally
+
+==== DNS
+
+Configure your DNS to point the <code>public_hostname</code> hostname to the Elastic IP associated with the "web-1" ec2 node.
+
+
+== License
+
+(The MIT License) 
+
+Copyright (c) 2010 Brian Ploetz <bploetz (at) gmail.com>
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR

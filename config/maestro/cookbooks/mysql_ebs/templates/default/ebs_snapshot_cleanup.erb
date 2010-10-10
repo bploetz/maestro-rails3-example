@@ -1,0 +1,47 @@
+#!/bin/bash
+
+export EC2_PRIVATE_KEY=/mnt/aws-pk.pem
+export EC2_CERT=/mnt/aws-cert.pem
+export JAVA_HOME=/usr/lib/jvm/java-6-openjdk/
+
+echo "EBS snapshot rotation for EBS Volume <%= @node[:mysql_ebs][:ebs_volume_id] %>"
+ebsSnapshots=`ec2-describe-snapshots`
+IFS=$'\n'
+lines=( $ebsSnapshots )
+snapshots=( )
+
+# collect all of the snapshots for our ebs volume
+for (( i = 0 ; i < ${#lines[@]} ; i++))
+do
+  IFS=$'\t'
+  parts=( ${lines[$i]} )
+  if [ "${parts[2]}" == "<%= @node[:mysql_ebs][:ebs_volume_id] %>" ]
+  then
+    snapshots[${#snapshots[*]}]="${parts[1]}"
+  fi
+done
+
+if [ ${#snapshots[@]} -gt 10 ]
+then
+  # keep the last 10 snapshots (ec2-describe-snapshots returns snapshots in order oldest to newest)
+  for (( i = 0 ; i < ${#snapshots[@]}-10 ; i++))
+  do
+    echo "Deleting snapshot: ${snapshots[i]}"
+    ec2-delete-snapshot ${snapshots[i]}
+  done
+fi
+
+echo "Remaining snapshots:"
+remainingEbsSnapshots=`ec2-describe-snapshots`
+IFS=$'\n'
+moreLines=( $remainingEbsSnapshots )
+
+for (( i = 0 ; i < ${#moreLines[@]} ; i++))
+do
+  IFS=$'\t'
+  parts=( ${moreLines[$i]} )
+  if [ "${parts[2]}" == "<%= @node[:mysql_ebs][:ebs_volume_id] %>" ]
+  then
+    echo "${parts[1]} \t ${parts[2]} \t ${parts[4]}"
+  fi
+done

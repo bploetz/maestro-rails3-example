@@ -1,0 +1,49 @@
+  server {
+    listen 80;
+    server_name <%= @node[:public_hostname] %>;
+
+    include <%= @node[:nginx][:dir] %>/sites-enabled/common.include;
+
+    root <%= @node[:nginx][:app_root] %>/public;
+
+    error_page   400 /400.html;
+    error_page   500 502 503 504  /500.html;
+    location = /500.html {
+      root <%= @node[:nginx][:app_root] %>/public;
+    }
+
+    # see http://wiki.codemongers.com/NginxHttpStubStatusModule for more information
+    location /nginx_status {
+      # copied from http://blog.kovyrin.net/2006/04/29/monitoring-nginx-with-rrdtool/
+      stub_status on;
+      access_log   off;
+      #only allow from localhost
+      allow 127.0.0.1;
+      deny all;
+    }
+  }
+
+  server {
+    listen 443;
+    server_name <%= @node[:public_hostname] %>;
+
+    include <%= @node[:nginx][:dir] %>/sites-enabled/common.include;
+
+    root <%= @node[:nginx][:app_root] %>/public;
+
+    error_page   400 /400.html;
+    error_page   500 502 503 504  /500.html;
+    location = /500.html {
+      root <%= @node[:nginx][:app_root] %>/public;
+    }
+
+    # For streaming local assets
+    location /assets/ {
+      root <%= @node[:nginx][:app_root] %>;
+      internal;
+    }
+
+    ssl on;
+    ssl_certificate <%= @node[:nginx][:dir] %>/ssl/server.crt;
+    ssl_certificate_key <%= @node[:nginx][:dir] %>/ssl/server.key;
+  }

@@ -1,0 +1,24 @@
+= DESCRIPTION:
+
+Various recipes for setting up MySQL on an EBS volume.
+
+= REQUIREMENTS:
+
+== Platform:
+
+Tested on Ubuntu 10.04.
+
+== Cookbooks:
+
+Requires Opscode's mysql::server recipe.
+
+= ATTRIBUTES: 
+
+* mysql_ebs[:device] - The device to mount
+
+= Usage:
+
+  include mysql_ebs::esh
+
+An implementation of Eric Hammond's instructions {here}[http://developer.amazonwebservices.com/connect/entry.jspa?categoryID=100&externalID=1663].
+This recipe assumes your EBS volume is already attached to the node.

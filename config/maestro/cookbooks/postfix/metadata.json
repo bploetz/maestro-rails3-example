@@ -1,0 +1,133 @@
+{
+    "maintainer": "Opscode, Inc.",
+    "attributes": {
+      "postfix/relayhost": {
+        "default": "",
+        "calculated": false,
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "Sets the relayhost value in main.cf",
+        "display_name": "Postfix Relayhost",
+        "required": "optional",
+        "recipes": [
+
+        ]
+      },
+      "postfix/relayport": {
+        "default": "",
+        "calculated": false,
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "Sets the relayhost's port value in main.cf",
+        "display_name": "Postfix Relayhost's Port",
+        "required": "optional",
+        "recipes": [
+
+        ]
+      },
+      "postfix/relayuserid": {
+        "default": "",
+        "calculated": false,
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "Sets the user id to authenticate with the relayhost in main.cf",
+        "display_name": "Postfix Relay User ID",
+        "required": "optional",
+        "recipes": [
+
+        ]
+      },
+      "postfix/relaypassword": {
+        "default": "",
+        "calculated": false,
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "Sets the password to authenticate with the relayhost in main.cf",
+        "display_name": "Postfix Relay Password",
+        "required": "optional",
+        "recipes": [
+
+        ]
+      },
+      "postfix/relay_concurrent_connections": {
+        "default": "",
+        "calculated": false,
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "Sets the max number of concurrent connections to the relay in main.cf",
+        "display_name": "Postfix Relay Concurrent Connections",
+        "required": "optional",
+        "recipes": [
+
+        ]
+      },
+      "postfix/mydomain": {
+        "default": "domain",
+        "calculated": false,
+        "type": "string",
+        "choice": [
+
+        ],
+        "description": "Sets the mydomain value in main.cf",
+        "display_name": "Postfix Mydomain",
+        "required": "optional",
+        "recipes": [
+
+        ]
+      },
+      "postfix": {
+        "calculated": false,
+        "type": "hash",
+        "choice": [
+
+        ],
+        "description": "Hash of Postfix attributes",
+        "display_name": "Postfix",
+        "required": "optional",
+        "recipes": [
+
+        ]
+      }
+    },
+    "suggestions": {
+    },
+    "platforms": {
+      "ubuntu": [
+
+      ],
+      "debian": [
+
+      ]
+    },
+    "dependencies": {
+    },
+    "maintainer_email": "cookbooks@opscode.com",
+    "conflicting": {
+    },
+    "version": "0.8.0",
+    "name": "postfix",
+    "recipes": {
+      "postfix::sasl_auth": "Set up postfix to auth to a server with sasl"
+    },
+    "providing": {
+    },
+    "license": "Apache 2.0",
+    "replacing": {
+    },
+    "groupings": {
+    },
+    "long_description": "",
+    "recommendations": {
+    },
+    "description": "Installs and configures postfix for client or outbound relayhost, or to do SASL auth"
+  }
