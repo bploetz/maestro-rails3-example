@@ -76,7 +76,7 @@ GEM
       rake (>= 0.8.4)
       thor (~> 0.14.0)
     rake (0.8.7)
-    the-maestro (0.4.0)
+    the-maestro (0.4.2)
       amazon-ec2 (= 0.9.11)
       archive-tar-minitar (= 0.5.2)
       aws-s3 (= 0.6.2)
@@ -97,4 +97,4 @@ PLATFORMS
 DEPENDENCIES
   mysql2
   rails (= 3.0.0)
-  the-maestro (= 0.4.0)
+  the-maestro (= 0.4.2)
